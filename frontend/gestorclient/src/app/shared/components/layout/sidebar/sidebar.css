@@ -1,0 +1,30 @@
+.sidebar {
+  background: linear-gradient(180deg, #1e293b 0%, #0f172a 100%);
+  color: white;
+  box-shadow: 4px 0 15px rgba(0,0,0,0.1);
+  min-height: 100vh;
+}
+
+.sidebar-brand {
+  color: rgb(191, 195, 248);
+  font-weight: 600;
+  font-size: 1.5rem;
+  padding: 1.5rem 1rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  letter-spacing: 0.5px;
+}
+
+.nav-link {
+  color: #cbd5e1;
+  border-radius: 8px;
+  margin: 0.3rem 1rem;
+  padding: 0.8rem 1rem;
+  transition: all 0.3s ease;
+  font-weight: 500;
+}
+
+.nav-link:hover, .nav-link.active {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+  transform: translateX(5px);
+}

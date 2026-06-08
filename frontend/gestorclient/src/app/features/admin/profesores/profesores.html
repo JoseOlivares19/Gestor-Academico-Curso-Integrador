@@ -1,0 +1,71 @@
+<div class="container mt-4">
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <h2>Gestión de Profesores</h2>
+    <button class="btn" [ngClass]="mostrarFormulario ? 'btn-secondary' : 'btn-primary'" (click)="toggleFormulario()">
+      {{ mostrarFormulario ? 'Cancelar' : 'Nuevo Profesor' }}
+    </button>
+  </div>
+
+  @if (mostrarFormulario) {
+    <div class="card mb-4 shadow-sm border-primary">
+      <div class="card-body">
+        <div class="row g-3">
+          <div class="col-md-5">
+            <label class="form-label">Nombre del Profesor</label>
+            <input type="text" class="form-control" [(ngModel)]="profesorTemp.nombreProfesor">
+          </div>
+          <div class="col-md-5">
+            <label class="form-label">Vincular con Cuenta de Usuario</label>
+            <select class="form-select" [(ngModel)]="profesorTemp.usuarioId">
+              <option [ngValue]="null">-- Sin cuenta asignada --</option>
+              @for (user of usuarios; track user.id) {
+                <option [value]="user.id">{{ user.username }} ({{ user.email }})</option>
+              }
+            </select>
+          </div>
+          <div class="col-md-2 d-flex align-items-end">
+            <button class="btn btn-success w-100" (click)="guardarProfesor()">
+              {{ idEditando ? 'Actualizar' : 'Guardar' }}
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  }
+
+  <div class="card shadow-sm">
+    <div class="card-body">
+      <table class="table table-hover table-sm">
+        <thead class="table-dark">
+          <tr>
+            <th>ID</th>
+            <th>Nombre del Profesor</th>
+            <th>Cuenta de Usuario</th>
+            <th>Estado</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (profe of profesores; track profe.id) {
+            <tr>
+              <td>{{ profe.id }}</td>
+              <td>{{ profe.nombreProfesor }}</td>
+              <td>
+                <span class="badge bg-secondary">{{ profe.username || 'Sin asignar' }}</span>
+              </td>
+              <td>
+                <span class="badge" [ngClass]="profe.habilitado ? 'bg-success' : 'bg-danger'">
+                  {{ profe.habilitado ? 'Activo' : 'Inactivo' }}
+                </span>
+              </td>
+              <td>
+                <button class="btn btn-sm btn-warning me-2" (click)="editarProfesor(profe)">Editar</button>
+                <button class="btn btn-sm btn-danger" (click)="eliminarProfesor(profe.id)">Eliminar</button>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

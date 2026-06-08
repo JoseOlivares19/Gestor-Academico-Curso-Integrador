@@ -1,0 +1,51 @@
+<div class="login-wrapper">
+  <div class="login-card shadow-lg">
+
+    <div class="text-center mb-4">
+      <h2 class="fw-bold">Bienvenido 👋</h2>
+      <p class="text-muted">Ingresa a tu cuenta para continuar</p>
+    </div>
+
+    <form (ngSubmit)="onSubmit()">
+
+      <div class="form-floating mb-3">
+        <input
+          type="text"
+          class="form-control"
+          id="username"
+          placeholder="Usuario"
+          [(ngModel)]="user.username"
+          name="username"
+          required>
+        <label for="username">Usuario</label>
+      </div>
+
+      <div class="form-floating mb-3">
+        <input
+          type="password"
+          class="form-control"
+          id="password"
+          placeholder="Contraseña"
+          [(ngModel)]="user.password"
+          name="password"
+          required>
+        <label for="password">Contraseña</label>
+      </div>
+
+      <button type="submit" class="btn btn-primary w-100 py-2 fw-semibold">
+        Iniciar Sesión
+      </button>
+
+    </form>
+
+    <div class="text-center mt-4">
+      <small class="text-muted">
+        ¿No tienes cuenta?
+        <a routerLink="/register" class="fw-semibold text-decoration-none">
+          Regístrate aquí
+        </a>
+      </small>
+    </div>
+
+  </div>
+</div>

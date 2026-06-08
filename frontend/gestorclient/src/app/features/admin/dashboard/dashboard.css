@@ -1,0 +1,36 @@
+.admin-stat-card {
+  border: none;
+  border-radius: 16px;
+  color: white;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.admin-stat-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 15px 25px rgba(0,0,0,0.15);
+}
+
+.bg-gradient-primary {
+  background: linear-gradient(135deg, #4f46e5 0%, #3b82f6 100%);
+}
+
+.bg-gradient-success {
+  background: linear-gradient(135deg, #10b981 0%, #34d399 100%);
+}
+
+.bg-gradient-warning {
+  background: linear-gradient(135deg, #f59e0b 0%, #fbbf24 100%);
+}
+
+.stat-value {
+  font-size: 4rem;
+  font-weight: 700;
+  margin-bottom: 0;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+}
+
+.tracking-wide {
+  letter-spacing: 1px;
+  font-size: 1rem;
+  opacity: 0.9;
+}

@@ -1,0 +1,106 @@
+<div class="container mt-4">
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <h2>Gestión de Cursos</h2>
+    <button class="btn" [ngClass]="mostrarFormulario ? 'btn-secondary' : 'btn-primary'" (click)="toggleFormulario()">
+      {{ mostrarFormulario ? 'Cancelar' : 'Nuevo Curso' }}
+    </button>
+  </div>
+
+  @if (mostrarFormulario) {
+    <div class="card mb-4 shadow-sm border-primary">
+      <div class="card-body">
+        <div class="row g-3">
+          <div class="col-md-5">
+            <label class="form-label">Nombre del Curso</label>
+            <input type="text" class="form-control" [(ngModel)]="cursoTemp.nombre">
+          </div>
+          <div class="col-md-5">
+            <label class="form-label">Profesor Asignado</label>
+            <select class="form-select" [(ngModel)]="cursoTemp.idProfesor">
+              <option [ngValue]="null">Seleccione un profesor...</option>
+              @for (profe of profesores; track profe.id) {
+                <option [value]="profe.id">{{ profe.nombreProfesor }}</option>
+              }
+            </select>
+          </div>
+          <div class="col-md-2 d-flex align-items-end">
+            <button class="btn btn-success w-100" (click)="guardarCurso()">{{ idEditando ? 'Actualizar' : 'Guardar' }}</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  }
+
+  <div class="card shadow-sm">
+    <div class="card-body">
+      <table class="table table-hover table-sm">
+        <thead class="table-dark">
+          <tr>
+            <th>ID</th>
+            <th>Nombre del Curso</th>
+            <th>Profesor Responsable</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (curso of cursos; track curso.id) {
+            <tr>
+              <td>{{ curso.id }}</td>
+              <td>{{ curso.nombre }}</td>
+              <td>
+                <span [class.text-muted]="!curso.idProfesor">
+                  {{ obtenerNombreProfesor(curso.idProfesor) }}
+                </span>
+              </td>
+              <td>
+                <button class="btn btn-sm btn-info me-2 text-white" (click)="verClases(curso)">Agenda 📅</button>
+                <button class="btn btn-sm btn-warning me-2" (click)="editarCurso(curso)">Editar</button>
+                <button class="btn btn-sm btn-danger" (click)="eliminarCurso(curso.id)">Eliminar</button>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  @if (cursoSeleccionado) {
+    <div class="card mt-4 shadow border-info animate__animated animate__fadeIn">
+      <div class="card-header bg-info text-white d-flex justify-content-between align-items-center">
+        <h5 class="mb-0">Agenda: {{ cursoSeleccionado.nombre }}</h5>
+        <button class="btn-close btn-close-white" (click)="cursoSeleccionado = null"></button>
+      </div>
+      <div class="card-body">
+        <div class="row g-2 mb-3">
+          <div class="col-md-6">
+            <input type="text" class="form-control" placeholder="Tema de la clase" [(ngModel)]="nuevaClase.tema">
+          </div>
+          <div class="col-md-4">
+            <input type="date" class="form-control" [(ngModel)]="nuevaClase.fecha">
+          </div>
+          <div class="col-md-2">
+            <button class="btn btn-primary w-100" (click)="agregarClase()">Añadir</button>
+          </div>
+        </div>
+        <table class="table table-sm">
+          <thead>
+            <tr>
+              <th>Fecha</th>
+              <th>Tema</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (clase of clasesDelCurso; track clase.id) {
+              <tr>
+                <td>{{ clase.fecha }}</td>
+                <td>{{ clase.tema }}</td>
+                <td><button class="btn btn-link text-danger p-0" (click)="borrarClase(clase.id)">Eliminar</button></td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    </div>
+  }
+</div>

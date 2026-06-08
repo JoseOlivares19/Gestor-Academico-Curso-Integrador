@@ -1,0 +1,30 @@
+<div class="sidebar h-100">
+  <div class="sidebar-brand">
+    Gestión Académica
+  </div>
+  <ul class="nav flex-column mt-3">
+
+    @if (role === 'admin') {
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/admin/dashboard" routerLinkActive="active">Dashboard</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/admin/cursos" routerLinkActive="active">Cursos</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/admin/alumnos" routerLinkActive="active">Alumnos</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/admin/profesores" routerLinkActive="active">Profesores</a>
+      </li>
+    }
+
+    @if (role === 'profesor') {
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/profesor/dashboard" routerLinkActive="active">Mis Clases</a>
+      </li>
+
+    }
+
+  </ul>
+</div>

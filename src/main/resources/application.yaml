@@ -1,0 +1,29 @@
+spring:
+  application:
+    name: gestorcolegio
+
+  datasource:
+    url: jdbc:mysql://localhost:3306/gestor?useSSL=false&serverTimezone=UTC
+    username: root
+    password: admin
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  jpa:
+    database-platform: org.hibernate.dialect.MySQLDialect
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+
+server:
+  port: 8080
+
+jwt:
+  secret: TLRQgykMMVlLoF2PPsSSTz55UKRihZuYHiZNEss6/yU=
+  expiration: 3600000
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html

@@ -1,0 +1,157 @@
+<div class="container-fluid pt-3">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h2>Panel del Profesor</h2>
+    <span class="badge bg-primary px-3 py-2">Docente Activo</span>
+  </div>
+
+  <div class="row mb-4">
+    <div class="col-md-4">
+      <div class="card text-white bg-info shadow-sm">
+        <div class="card-body text-center">
+          <h5 class="card-title">Mis Cursos Asignados</h5>
+          <p class="card-text display-6">{{ misCursos.length }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <h4 class="mb-3">Selecciona un curso para gestionar:</h4>
+
+  <div class="row">
+    @for (curso of misCursos; track curso.id) {
+      <div class="col-md-4 mb-4">
+        <div class="card h-100 shadow-sm border-info">
+          <div class="card-body d-flex flex-column">
+            <h5 class="card-title text-info">{{ curso.nombre }}</h5>
+            <p class="card-text text-muted small">ID: {{ curso.id }}</p>
+            <div class="mt-auto">
+              <button class="btn btn-primary w-100" (click)="verAgenda(curso)">
+                📅 Gestionar Asistencia
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    }
+  </div>
+
+  @if (cursoSeleccionado && !mostrarAlumnos) {
+    <div class="card mt-2 shadow border-info animate__animated animate__fadeIn">
+      <div class="card-header bg-info text-white d-flex justify-content-between">
+        <h5 class="mb-0">Agenda: {{ cursoSeleccionado.nombre }}</h5>
+        <button class="btn-close btn-close-white" (click)="cursoSeleccionado = null"></button>
+      </div>
+      <div class="card-body">
+        <table class="table table-sm table-hover">
+          <thead>
+            <tr>
+              <th>Fecha</th>
+              <th>Tema</th>
+              <th>Acción</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (clase of clasesDelCurso; track clase.id) {
+              <tr>
+                <td>{{ clase.fecha }}</td>
+                <td>{{ clase.tema }}</td>
+                <td>
+                  <button class="btn btn-sm btn-outline-primary" (click)="seleccionarClase(clase)">
+                    Tomar Lista
+                  </button>
+                </td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    </div>
+  }
+
+  @if (mostrarAlumnos) {
+    <div class="card mt-3 shadow border-primary animate__animated animate__fadeIn">
+      <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+        <div>
+          <h5 class="mb-0">Asistencia: {{ claseSeleccionada.tema }}</h5>
+          <small>{{ claseSeleccionada.fecha }}</small>
+        </div>
+        <button class="btn-close btn-close-white" (click)="mostrarAlumnos = false"></button>
+      </div>
+      <div class="card-body">
+
+        @if (!asistenciaGuardada) {
+          <table class="table table-sm table-hover">
+            <thead>
+              <tr>
+                <th>Nombre del Alumno</th>
+                <th style="width: 200px;">Estado</th>
+              </tr>
+            </thead>
+            <tbody>
+              @for (alumno of alumnosDelCurso; track alumno.id) {
+                <tr>
+                  <td class="align-middle">{{ alumno.nombre }}</td>
+                  <td>
+                    <select class="form-select form-select-sm" [(ngModel)]="alumno.estadoAsistencia">
+                      <option value="PRESENTE">Presente</option>
+                      <option value="AUSENTE">Ausente</option>
+                      <option value="TARDANZA">Tardanza</option>
+                    </select>
+                  </td>
+                </tr>
+              }
+            </tbody>
+          </table>
+
+          <div class="d-flex justify-content-end mt-3">
+            <button class="btn btn-success px-4" (click)="guardarAsistenciaGeneral()">
+              💾 Guardar Asistencia General
+            </button>
+          </div>
+        }
+
+        @else {
+          <div class="alert alert-success d-flex align-items-center mb-3">
+            <strong>¡Asistencia registrada exitosamente en la base de datos!</strong>
+          </div>
+
+          <table class="table table-sm table-bordered">
+            <thead class="table-light">
+              <tr>
+                <th>Nombre del Alumno</th>
+                <th class="text-center" style="width: 150px;">Registro Final</th>
+              </tr>
+            </thead>
+            <tbody>
+              @for (alumno of alumnosDelCurso; track alumno.id) {
+                <tr>
+                  <td class="align-middle">{{ alumno.nombre }}</td>
+                  <td class="text-center align-middle">
+                    <span class="badge w-100 py-2"
+                          [ngClass]="{
+                            'bg-success': alumno.estadoAsistencia === 'PRESENTE',
+                            'bg-danger': alumno.estadoAsistencia === 'AUSENTE',
+                            'bg-warning text-dark': alumno.estadoAsistencia === 'TARDANZA'
+                          }">
+                      {{ alumno.estadoAsistencia }}
+                    </span>
+                  </td>
+                </tr>
+              }
+            </tbody>
+          </table>
+
+          <div class="d-flex justify-content-end mt-3 gap-2">
+            <button class="btn btn-warning px-4 text-dark font-weight-bold" (click)="asistenciaGuardada = false">
+              ✏️ Editar Asistencia
+            </button>
+            <button class="btn btn-secondary px-4" (click)="mostrarAlumnos = false">
+              Cerrar Resumen
+            </button>
+          </div>
+        }
+
+      </div>
+    </div>
+  }
+</div>

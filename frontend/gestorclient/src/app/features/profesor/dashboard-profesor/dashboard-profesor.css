@@ -1,0 +1,50 @@
+.card {
+  border: none;
+  border-radius: 12px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  background-color: #ffffff;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 20px rgba(0, 0, 0, 0.1) !important;
+}
+
+.card-header {
+  border-radius: 12px 12px 0 0 !important;
+  border-bottom: none;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+}
+
+.table {
+  margin-bottom: 0;
+}
+
+.table th {
+  font-weight: 600;
+  color: #475569;
+  border-bottom: 2px solid #e2e8f0;
+}
+
+.table td {
+  vertical-align: middle;
+}
+
+.form-select {
+  border-radius: 8px;
+  border: 1px solid #cbd5e1;
+  transition: border-color 0.2s;
+}
+
+.form-select:focus {
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 0.2rem rgba(59, 130, 246, 0.25);
+}
+
+.badge {
+  font-weight: 500;
+  padding: 0.6em 0.8em;
+  border-radius: 6px;
+  letter-spacing: 0.5px;
+}

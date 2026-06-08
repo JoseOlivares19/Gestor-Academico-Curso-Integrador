@@ -1,0 +1,35 @@
+.register-wrapper {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, #4e73df, #1cc88a);
+}
+
+.register-card {
+  width: 100%;
+  max-width: 420px;
+  background: white;
+  padding: 40px;
+  border-radius: 15px;
+}
+
+.form-control {
+  border-radius: 10px;
+  padding: 12px;
+}
+
+.btn-primary {
+  border-radius: 10px;
+  padding: 12px;
+  font-weight: 600;
+}
+
+.login-link {
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.login-link:hover {
+  text-decoration: underline;
+}
